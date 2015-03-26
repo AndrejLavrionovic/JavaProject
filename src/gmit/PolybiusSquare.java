@@ -44,6 +44,12 @@ public class PolybiusSquare {
 		polybius.put("7", "VV");
 		polybius.put("8", "XX");
 		polybius.put("9", "XD");
+		polybius.put(".", "AZ");
+		polybius.put(",", "DZ");
+		polybius.put("\"", "FZ");
+		polybius.put(":", "GZ");
+		polybius.put("-", "VZ");
+		polybius.put("?", "XZ");
 	}
 	
 	public String encript(String key){
