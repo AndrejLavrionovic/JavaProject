@@ -5,22 +5,46 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collection;
 
 public class TestRunner {
 	public static void main(String[] args) throws IOException {
 
 		// VARIABLES
 		//*****************************************************
-		String keyWord = "java", codeLine = null;
+		String keyWord = "java", codeLine = null, keyWordSorted;
 		int i, j;
 		
 		List<ArrayList> l = new ArrayList<ArrayList>();
 		List<String> listColumn = new ArrayList<String>();
 		
 		PolybiusSquare p = new PolybiusSquare();
-		KeyColumn kc;
+		
+		// Hashmap of keyword
+		Map<String, Integer> kwHashMap = new HashMap<String, Integer>();
+		
+		for(i = 0; i < keyWord.length(); i++){
+			kwHashMap.put(String.format("%s", keyWord.charAt(i)), i);
+		}
+		
+		// Arrangement letters in the keyword in alphabetical order
+		List<String> kwArrayList = new ArrayList<String>();
+		for (i = 0; i < keyWord.length(); i++){
+			kwArrayList.add(String.format("%s", keyWord.charAt(i)));
+		}
+		
+		Collections.sort(kwArrayList);
+		
+		for(i = 0; i < kwArrayList.size(); i++){
+			System.out.print(kwArrayList.get(i));
+		}
+		System.out.println("\n");
+		
 
 		File f = new File("PoblachtNaHEireann.txt");
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
