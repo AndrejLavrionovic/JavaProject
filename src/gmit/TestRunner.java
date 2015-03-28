@@ -14,47 +14,92 @@ import java.util.Collection;
 
 public class TestRunner {
 	public static void main(String[] args) throws IOException {
+		long startTime = System.currentTimeMillis();
 
 		// VARIABLES
 		//*****************************************************
-		String keyWord = "java", codeLine = null, keyWordSorted;
-		int i, j;
+		String keyWord = "ELEPHANABT", codeLine = null, keyWordSorted;
+		int i, j, k, index = 0, element, pos;
+		int[] indexOrder = new int[keyWord.length()];
+		char[] keyWordArr = new char[keyWord.length()];
 		
 		List<ArrayList> l = new ArrayList<ArrayList>();
-		List<String> listColumn = new ArrayList<String>();
+		List<Character> listColumn = new ArrayList<Character>();
 		
 		PolybiusSquare p = new PolybiusSquare();
 		
-		// Hashmap of keyword
-		Map<String, Integer> kwHashMap = new HashMap<String, Integer>();
-		
+		//******************************************************************************
+		// SORTING KEYWORD
+		//******************************************************************************
 		for(i = 0; i < keyWord.length(); i++){
-			kwHashMap.put(String.format("%s", keyWord.charAt(i)), i);
+			keyWordArr[i] = keyWord.charAt(i);
 		}
+		for(i = 0; i < keyWord.length(); i++){
+			index = 0;
+			for(j = index+1; j < keyWord.length(); j++){
+				if(keyWordArr[index] > keyWordArr[j]){
+					index = j;
+				}
+			} // end nested for-loop
+			keyWordArr[index] = (char)127;
+			indexOrder[i] = index;
+			System.out.println(indexOrder[i]);
+		} // end outer for-loop
+		//******************************************************************************
+		//******************************************************************************
+		System.out.println("\n\n");
 		
-		// Arrangement letters in the keyword in alphabetical order
-		List<String> kwArrayList = new ArrayList<String>();
-		for (i = 0; i < keyWord.length(); i++){
-			kwArrayList.add(String.format("%s", keyWord.charAt(i)));
-		}
 		
-		Collections.sort(kwArrayList);
-		
-		for(i = 0; i < kwArrayList.size(); i++){
-			System.out.print(kwArrayList.get(i));
-		}
-		System.out.println("\n");
-		
+		//******************************************************************************
+		// Encoding
+		//******************************************************************************
 
-		File f = new File("PoblachtNaHEireann.txt");
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+		//File f = new File("PoblachtNaHEireann.txt");
+		//File f = new File("DeBelloGallico.txt");
+		File fOut = new File("WarAndPeace-LeoTolstoy.txt");
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fOut)));
 		
 		// Printing text from the file
 		String line = null;
-		int index = 0;
+		int ArrayListIndex = 0;
 		while((line = br.readLine()) != null){
-			System.out.println(line);
+			//System.out.println(line);
 			
+			//*************************************************************************
+			// Removing spaces
+			//*************************************************************************
+			String[] words = line.split(" ");
+			line = "";
+			for(i = 0; i < words.length; i++){
+				line += words[i];
+			}
+			//System.out.println(line);
+			
+			//**************************************************************************
+			// Encoding and Encrypting line by line
+			//**************************************************************************
+			for(i = 0; i < keyWord.length(); i++){
+				index = indexOrder[i];
+				for(j = index / 2; j < line.length(); j += keyWord.length() / 2){
+					char letter = line.charAt(j);
+					if(65 <= (int)letter && (int)letter <= 90){
+						letter = Character.toLowerCase(letter);
+					}
+					if((index % 2) == 0){
+						listColumn.add(p.encrypt(letter).charAt(0));
+					}
+					else{
+						listColumn.add(p.encrypt(letter).charAt(1));
+					}
+					System.out.print(listColumn.get(ArrayListIndex));
+					ArrayListIndex++;
+				}
+			}
+			//**************************************************************************
+			//**************************************************************************
+			 System.out.println();
+			 
+			/*
 			codeLine = "";
 			
 			String[] words = line.split(" ");
@@ -71,28 +116,29 @@ public class TestRunner {
 			
 			
 			for(i = 0; i < keyWord.length(); i++){
-				/*
+				
 				int listLength = codeLine.length() / keyWord.length();
 				if((codeLine.length() % keyWord.length()) != 0){
 					if(i >= (codeLine.length() % keyWord.length())){
 						listLength = (codeLine.length() / keyWord.length()) - 1;
 					}
 				}
-				*/
+				
 				for(j = i; j < codeLine.length(); j+=keyWord.length()){
 					listColumn.add(String.format("%s", codeLine.charAt(j)));
 					
-					System.out.print(listColumn.get(index));
-					index++;
+					System.out.print(listColumn.get(ArrayListIndex));
+					ArrayListIndex++;
 				} // end nested for loop
 			} // end outer for loop
 			
 			System.out.println("\n");
+			*/
 		} // while 
-		
 		br.close();
 		
-		
+		long endTime = System.currentTimeMillis();
+		System.out.println("\n\tTook "+(endTime - startTime) / 1000 + " seconds");
 		
 	} // main
 } // class
