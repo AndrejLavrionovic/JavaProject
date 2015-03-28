@@ -3,6 +3,7 @@ package gmit;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collections;
@@ -43,7 +44,7 @@ public class TestRunner {
 			} // end nested for-loop
 			keyWordArr[index] = (char)127;
 			indexOrder[i] = index;
-			System.out.println(indexOrder[i]);
+			//System.out.println(indexOrder[i]);
 		} // end outer for-loop
 		//******************************************************************************
 		//******************************************************************************
@@ -54,10 +55,12 @@ public class TestRunner {
 		// Encoding
 		//******************************************************************************
 
-		//File f = new File("PoblachtNaHEireann.txt");
-		//File f = new File("DeBelloGallico.txt");
+		//File fOut = new File("PoblachtNaHEireann.txt");
+		//File fOut = new File("DeBelloGallico.txt");
 		File fOut = new File("WarAndPeace-LeoTolstoy.txt");
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fOut)));
+		
+		FileWriter fIn = new FileWriter("enc.txt");
 		
 		// Printing text from the file
 		String line = null;
@@ -71,7 +74,7 @@ public class TestRunner {
 			String[] words = line.split(" ");
 			line = "";
 			for(i = 0; i < words.length; i++){
-				line += words[i];
+				line += words[i].trim();
 			}
 			//System.out.println(line);
 			
@@ -91,7 +94,8 @@ public class TestRunner {
 					else{
 						listColumn.add(p.encrypt(letter).charAt(1));
 					}
-					System.out.print(listColumn.get(ArrayListIndex));
+					//System.out.print(listColumn.get(ArrayListIndex));
+					fIn.append(listColumn.get(ArrayListIndex));
 					ArrayListIndex++;
 				}
 			}
@@ -136,6 +140,7 @@ public class TestRunner {
 			*/
 		} // while 
 		br.close();
+		fIn.close();
 		
 		long endTime = System.currentTimeMillis();
 		System.out.println("\n\tTook "+(endTime - startTime) / 1000 + " seconds");
