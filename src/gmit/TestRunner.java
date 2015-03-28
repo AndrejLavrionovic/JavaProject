@@ -21,6 +21,7 @@ public class TestRunner {
 		//*****************************************************
 		String keyWord = "ELEPHANABT", codeLine = null, keyWordSorted;
 		int i, j, k, index = 0, element, pos;
+		char c;
 		int[] indexOrder = new int[keyWord.length()];
 		char[] keyWordArr = new char[keyWord.length()];
 		
@@ -60,7 +61,7 @@ public class TestRunner {
 		File fOut = new File("WarAndPeace-LeoTolstoy.txt");
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fOut)));
 		
-		FileWriter fIn = new FileWriter("enc.txt");
+		FileWriter encFIn = new FileWriter("enc.txt");
 		
 		// Printing text from the file
 		String line = null;
@@ -89,19 +90,21 @@ public class TestRunner {
 						letter = Character.toLowerCase(letter);
 					}
 					if((index % 2) == 0){
-						listColumn.add(p.encrypt(letter).charAt(0));
+						c = p.encrypt(letter).charAt(0);
 					}
 					else{
-						listColumn.add(p.encrypt(letter).charAt(1));
+						c = p.encrypt(letter).charAt(1);
 					}
 					//System.out.print(listColumn.get(ArrayListIndex));
-					fIn.append(listColumn.get(ArrayListIndex));
+					encFIn.append(c);
 					ArrayListIndex++;
 				}
 			}
+			encFIn.append('\n');
 			//**************************************************************************
 			//**************************************************************************
-			 System.out.println();
+			
+			 //System.out.println();
 			 
 			/*
 			codeLine = "";
@@ -140,7 +143,15 @@ public class TestRunner {
 			*/
 		} // while 
 		br.close();
-		fIn.close();
+		encFIn.close();
+		
+		
+		//**************************************************************************
+		// Decryption
+		//**************************************************************************
+		//File encFile = new File("enc.txt");
+		//**************************************************************************
+		//**************************************************************************
 		
 		long endTime = System.currentTimeMillis();
 		System.out.println("\n\tTook "+(endTime - startTime) / 1000 + " seconds");
