@@ -1,0 +1,8 @@
+The ADFGVX cypher was used by the Germans Army in WW1 from March 1918
+to encrypt field communications during the Ludendorff Offensive
+(Keiserschlacht). The cypher is si named because all messages are encrypted
+into codes from the small alphabet of ADFGVX to reduce operator error when
+sending Morse Code signals. Although an improvement on the ADFGVX cypher
+used by the Germans up until 1918, the new cypher was broken by the
+French cryptanalyst Georges Painvin and proved decisive in repulsing
+the attack at Compiegne on June 11th 1918.
